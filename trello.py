@@ -1,12 +1,10 @@
 import requests  
 import sys
   
-# Данные авторизации в API Trello  
 auth_params = {    
     'key': "e7d55e563fdeca3f5065ab8d311d17f1",    
     'token': "06e853ead14353156cee10bed3a4b39a04459fca9db907b27418d123f0ecc5dd", }  
   
-# Адрес, на котором расположен API Trello, # Именно туда мы будем отправлять HTTP запросы.  
 base_url = "https://api.trello.com/1/{}"  
 board_id = "5df135f087f9e5647f9abc87"
 
@@ -44,7 +42,6 @@ def move(name, column_name):
     # Получим данные всех колонок на доске    
     column_data = requests.get(base_url.format('boards') + '/' + board_id + '/lists', params=auth_params).json()    
         
-    # Среди всех колонок нужно найти задачу по имени и получить её id    
     task_id = None    
     for column in column_data:    
         column_tasks = requests.get(base_url.format('lists') + '/' + column['id'] + '/cards', params=auth_params).json()    
@@ -55,11 +52,8 @@ def move(name, column_name):
         if task_id:    
             break    
        
-    # Теперь, когда у нас есть id задачи, которую мы хотим переместить    
-    # Переберём данные обо всех колонках, пока не найдём ту, в которую мы будем перемещать задачу    
     for column in column_data:    
         if column['name'] == column_name:    
-            # И выполним запрос к API для перемещения задачи в нужную колонку    
             requests.put(base_url.format('cards') + '/' + task_id + '/idList', data={'value': column['id'], **auth_params})    
             break    
 
