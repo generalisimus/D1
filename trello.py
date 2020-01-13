@@ -2,11 +2,11 @@ import requests
 import sys
   
 auth_params = {    
-    'key': "e7d55e563fdeca3f5065ab8d311d17f1",    
-    'token': "06e853ead14353156cee10bed3a4b39a04459fca9db907b27418d123f0ecc5dd", }  
+    'key': "Вставьте своё значение",    
+    'token': "Вставьте своё значение", }  
   
 base_url = "https://api.trello.com/1/{}"  
-board_id = "5df135f087f9e5647f9abc87"
+board_id = "Вставьте своё значение"
 
 def create_column(column_name):
 	return requests.post(base_url.format('lists'), data={'name': column_name, 'idBoard': board_id, **auth_params}).json()
